@@ -78,7 +78,7 @@ app.post('/login', (req, res) => {
   });
   setTimeout(() => {
     res.send(firebase.auth().currentUser.uid);
-    }, 2000);
+    }, 3000);
 });
 
 app.get('/signout', (req, res) => {
