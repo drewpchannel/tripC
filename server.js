@@ -13,6 +13,8 @@ const app = express();
 //make xhr not check if 200 or not run as async?
 //had to set 2 second timer waiting for xhr with uid, might be fb is mad
 //2 layers protectiong, like pswd and ip for fb
+//try to wireshark our site?
+//tls (ssl replacement) will need a special setup for nginx found in expr docs
 
 const config = {
   apiKey: "AIzaSyDr-cAxhiDSQqlQfe5jGc-5UsQ0l6La5FE",
