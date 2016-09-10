@@ -12,30 +12,6 @@ angular.module('CalendarTest')
     $scope.pin = '';
     $scope.idMethod = '';
 
-    // $scope.accountInfo = [
-    //   {
-    //     model: '',
-    //     placeholder: 'Full Name',
-    //     fa: 'fa-user',
-    //   },
-    //   {
-    //     model: '',
-    //     placeholder: 'Email Address',
-    //     fa: 'fa-envelope',
-    //   },
-    //   {
-    //     model: '',
-    //     placeholder: 'Password',
-    //     fa: 'fa-key',
-    //   },
-    //   {
-    //     model: '',
-    //     placeholder: 'Phone Number',
-    //     fa: 'fa-phone',
-    //   },
-    // ];
-
-
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     $scope.update = (user) => {
       const req = new XMLHttpRequest();
