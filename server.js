@@ -17,13 +17,13 @@ const app = express();
 //tls (ssl replacement) will need a special setup for nginx found in expr docs
 
 const config = {
-  apiKey: "AIzaSyDr-cAxhiDSQqlQfe5jGc-5UsQ0l6La5FE",
-  authDomain: "calendar-test-950b1.firebaseapp.com",
-  databaseURL: "https://calendar-test-950b1.firebaseio.com",
-  storageBucket: "calendar-test-950b1.appspot.com",
+  apiKey: 'AIzaSyDr-cAxhiDSQqlQfe5jGc-5UsQ0l6La5FE',
+  authDomain: 'calendar-test-950b1.firebaseapp.com',
+  databaseURL: 'https://calendar-test-950b1.firebaseio.com',
+  storageBucket: 'calendar-test-950b1.appspot.com',
 };
 firebase.initializeApp(config);
-//Enable logging messages to spam the console.
+// Enable logging messages to spam the console.
 // firebase.database.enableLogging((logMessage) => {
 //   console.log(`${new Date().toISOString()} : ${logMessage}`);
 // });
@@ -32,26 +32,33 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+const validateEmail = email => {
+  let re = /\S+@\S+\.\S+/;
+  return re.test(email);
+};
+const checkReqBody = reqBody => {
+  if (reqBody.fullName.length > 30 || !validateEmail(reqBody.email) || !reqBody.phone.length >= 7) {
+    return true;
+  }
+  return false;
+};
+
 app.post('/signup', (req, res) => {
   let err = checkReqBody(req.body);
-  console.log(err);
   firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
   .catch((error) => {
     err = true;
     console.log(`${error.code} : ${error.message}`);
   })
   .then(() => {
-    if(!err) {
-      console.log(req.body);
+    if (!err) {
       let db = firebase.database().ref(`users`);
       let email = req.body.email.replace('.', '');
       db.child(`${email}`).set({
         fullName: req.body.fullName,
         email: req.body.email,
         phone: req.body.phone,
-        dobDay: req.body.dobDay,
-        dobMonth: req.body.dobMonth,
-        dobYear: req.body.dobYear,
+        dob: `${req.body.dobDay}/${req.body.dobMonth}/${req.body.dobYear}`,
         gender: req.body.gender,
         idMethod: req.body.idMethod,
         idNumber: req.body.idNumber,
@@ -60,16 +67,6 @@ app.post('/signup', (req, res) => {
   });
 });
 
-const checkReqBody = reqBody => {
-  if(reqBody.fullName.length > 30 || !validateEmail(reqBody.email) || !reqBody.phone.length >= 7) {
-    return true;
-  }
-  return false;
-};
-const validateEmail = email => {
-  let re = /\S+@\S+\.\S+/;
-  return re.test(email);
-};
 
 app.post('/login', (req, res) => {
   firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
@@ -91,7 +88,7 @@ app.get('/signout', (req, res) => {
 
 app.get('/testPage', (req, res) => {
   console.log('Attempting to find current user... ');
-  let user = firebase.auth().currentUser;
+  const user = firebase.auth().currentUser;
   console.log(user);
 });
 
