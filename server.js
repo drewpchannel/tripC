@@ -15,6 +15,7 @@ const app = express();
 //2 layers protectiong, like pswd and ip for fb
 //try to wireshark our site?
 //tls (ssl replacement) will need a special setup for nginx found in expr docs
+//adding and removing visits for every friday 
 
 const config = {
   apiKey: "AIzaSyDr-cAxhiDSQqlQfe5jGc-5UsQ0l6La5FE",

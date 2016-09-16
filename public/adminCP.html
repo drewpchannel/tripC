@@ -1,0 +1,8 @@
+<div>
+  <button ng-click="showDateFields = !showDateFields">Create Date</button>
+  <input ng-show="showDateFields === true" ng-model="newVisitDate.day" type="text" placeholder="Day"/>
+  <input ng-show="showDateFields === true" ng-model="newVisitDate.month" type="text" placeholder="Month"/>
+  <input ng-show="showDateFields === true" ng-model="newVisitDate.year" type="text" placeholder="Year"/>
+  <!-- ng-model="user.fullName" -->
+  <input ng-show="showDateFields === true" type="submit" ng-click="createVisitDate(newVisitDate); showDateFields = false" value="Submit" />
+</div>

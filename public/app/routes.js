@@ -13,4 +13,8 @@ angular.module('CalendarTest')
       templateUrl: '/visitform.html',
       controller: 'VisitFormController'
     })
+    $routeProvider.when('/adminCP', {
+      templateUrl: '/adminCP.html',
+      controller: 'adminCPController'
+    })
   });
